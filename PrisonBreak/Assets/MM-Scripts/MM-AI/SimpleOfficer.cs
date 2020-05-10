@@ -11,14 +11,15 @@ public class SimpleOfficer : MonoBehaviour
     public bool checkIfTargetInSight = false;
     public bool moveToNextSpot = true;
     public float pursueTimer = 3f;
+    public float pursuitTimer;
     public Transform[] patrolPoints;
     public LayerMask playerLayer;
+    
 
     private Transform patrolPoint;
     private bool finding = false;
     private int curPatrol = 0;
     private NavMeshAgent nav;
-    private float pursuitTimer;
     private GameObject prevTarget;
     private void Start()
     {
@@ -34,7 +35,7 @@ public class SimpleOfficer : MonoBehaviour
         if (!shouldPursue)
         {
             RaycastHit hit;
-            if (Physics.Raycast(new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z), transform.TransformDirection(Vector3.forward), out hit, seeDistance, playerLayer))
+            if (Physics.Raycast(new Vector3(this.transform.position.x, this.transform.position.y + .66f, this.transform.position.z), transform.TransformDirection(Vector3.forward), out hit, seeDistance, playerLayer))
             {
                 //Debug.Log("casting");
                 if (hit.collider.tag.Equals("Player"))
@@ -64,10 +65,32 @@ public class SimpleOfficer : MonoBehaviour
             }
             else
             {
-                DisablePursue();
-                ResetTimer();
+                if (RecheckForTarget())//check to see if they can still see their target
+                {
+                    //if they can then reset timer and do not disable pursue
+                    ResetTimer();
+                }
+                else
+                {
+                    DisablePursue();
+                    ResetTimer();
+                }
             }
         }
+    }
+    private bool RecheckForTarget()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(new Vector3(this.transform.position.x, this.transform.position.y + .66f, this.transform.position.z), transform.TransformDirection(Vector3.forward), out hit, seeDistance + 5, playerLayer))
+        {
+            //Debug.Log("casting");
+            if (hit.collider.name.Equals(prevTarget.name))
+            {
+                return true;
+                //EnablePursue(hit.collider.gameObject);
+            }
+        }
+        return false;
     }
     public IEnumerator FindNextSpot()
     {
@@ -94,10 +117,10 @@ public class SimpleOfficer : MonoBehaviour
         
         if (checkNum == curPatrol)//comparing the names of the patrol points
         {
-            Debug.Log("got to the checking point right before the while");
+            //Debug.Log("got to the checking point right before the while");
             while (true)
             {
-                Debug.Log(checkNum + "    " + curPatrol);
+                //Debug.Log(checkNum + "    " + curPatrol);
                 checkNum = Random.Range(0, patrolPoints.Length - 1);
                 if (((checkNum + 1) / (curPatrol + 1)) != 1)
                 {
@@ -112,7 +135,7 @@ public class SimpleOfficer : MonoBehaviour
     {
         if (Vector3.Distance(this.transform.position, patrolPoint.transform.position) > 2f)
         {
-            Debug.Log("should be patrolling");
+            //Debug.Log("should be patrolling");
             nav.SetDestination(patrolPoint.position);
         }
         else
