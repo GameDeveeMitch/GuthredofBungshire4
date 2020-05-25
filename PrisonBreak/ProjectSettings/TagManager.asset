@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Cell
   - The Yard
+  - HoursText
+  - MinutesText
+  - AMPMText
+  - ScheduleText
   layers:
   - Default
   - TransparentFX

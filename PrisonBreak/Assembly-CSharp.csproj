@@ -81,13 +81,12 @@
     <Compile Include="Assets\Invector-3rdPersonController\Basic Locomotion LITE\Scripts\Generic\vExtensions.cs" />
     <Compile Include="Assets\Invector-3rdPersonController\Basic Locomotion LITE\Scripts\Generic\vPickupItem.cs" />
     <Compile Include="Assets\MakeAHole.cs" />
-    <Compile Include="Assets\Mitch_Stuff\Time_System\Scheduel_Manager.cs" />
+    <Compile Include="Assets\Mitch_Stuff\Time_System\TS-Scripts\Schedule_Manager.cs" />
     <Compile Include="Assets\MonitorScript.cs" />
     <Compile Include="Assets\Officer.cs" />
     <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
     <Compile Include="Assets\Room.cs" />
     <Compile Include="Assets\RoomTracker.cs" />
-    <Compile Include="Assets\ScheduleManager.cs" />
     <Compile Include="Assets\TMI - Dungeon\Player\PlayerLook.cs" />
     <Compile Include="Assets\TMI - Dungeon\Player\PlayerMove.cs" />
     <None Include="Assets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
